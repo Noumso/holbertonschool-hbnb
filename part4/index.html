@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Places List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" alt="Logo" class="logo">
+        <a href="login.html" id="login-link" class="login-button">Login</a>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="places-list">
+            <!-- Lieux seront ajoutés ici dynamiquement -->
+        </section>
+        
+        <section>
+            <label for="price-filter">Filter by price:</label>
+            <select id="price-filter">
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="all">All</option>
+            </select>
+        </section>
+    </main>
+
+    <footer>
+        <p>All rights reserved &copy; 2025</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
