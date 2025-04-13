@@ -1,33 +1,56 @@
-from app.models.base_model import BaseModel
+#!/usr/bin/python3
+"""
+this module contain a class Place
+"""
+from .base_model import BaseModel
+import uuid
+from datetime import datetime
+
 
 class Place(BaseModel):
-    def __init__(self, title, description, price, latitude, longitude, owner):
+    """Represents a place that can be rented in the HbnB app"""
+    def __init__(self, title, description, price, latitude, longitude, owner, reviews=[], amenities=[]):
         super().__init__()
-
-        if not title or len(title) > 100:
-            raise ValueError("Le titre est requis et doit faire moins de 100 caractères.")
-        if price <= 0:
-            raise ValueError("Le prix doit être un nombre positif.")
-        if not (-90.0 <= latitude <= 90.0):
-            raise ValueError("La latitude doit être comprise entre -90 et 90.")
-        if not (-180.0 <= longitude <= 180.0):
-            raise ValueError("La longitude doit être comprise entre -180 et 180.")
-        if owner is None:
-            raise ValueError("Un propriétaire valide est requis.")
-
         self.title = title
         self.description = description
         self.price = price
         self.latitude = latitude
         self.longitude = longitude
         self.owner = owner
-        self.reviews = []
-        self.amenities = []
+        self.reviews = reviews # List to store related reviews
+        self.amenities = amenities # List to store related amenities
+        self.validate_place()
+
+    def validate_place(self):
+        """Validate place informations format"""
+        if not self.title:
+            raise ValueError("Title is required")
+        if (not self.price) or self.price <= 0:
+            raise ValueError("Price is required and must be positive")
+        if (not self.latitude) or self.latitude < -90 or self.latitude > 90:
+            raise ValueError("Latitude must be between -90 and 90")
+        if (not self.longitude) or self.longitude < -180 or self.longitude > 180:
+            raise ValueError("Longitude must be between -180 and 180")
+
 
     def add_review(self, review):
-        """Ajoute un avis au lieu"""
+        """Add a review to the place."""
         self.reviews.append(review)
 
     def add_amenity(self, amenity):
-        """Ajoute une commodité au lieu"""
+        """Add an amenity to the place."""
         self.amenities.append(amenity)
+
+    def list_by_place(self):
+        """Dictionary of details for place."""
+        place_info = {
+            "title": self.title,
+            "description": self.description,
+            "price": self.price,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "owner": self.owner,
+            "reviews": self.reviews,
+            "amenities": self.amenities
+        }
+        return place_info
